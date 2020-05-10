@@ -11,7 +11,7 @@ tags:
 ---
 
 #### 写在前面
-> 本系列目的：希望可以通过一篇文章，不求鞭辟入里，但使得心应手。
+> 本系列目的：希望可以通过一篇文章，不望鞭辟入里，但求在工程应用中得心应手。
 
 + 装饰器模式是鼎鼎大名的23种设计模式之一。装饰器模式可以在不改变原有代码结构的情况下，扩展代码功能。
 + Python将装饰器作为Python的一种特性，内置了对装饰器的支持，使得Python使用者在使用装饰器时更加方便，合理使用装饰器，可以使Python代码极具美感。
@@ -217,9 +217,7 @@ tags:
                     if self.flag:
                         print("running time:", time.time())
                     f()
-                return wrapper
-        ```
-    
+                return wrapper   
     
         @print_running_time(1)
         def f():
@@ -235,14 +233,12 @@ tags:
         >>> 输出同带参数的函数装饰器
       ```
   
-    ```
-  
 - 常用内建装饰器
     > 装饰器是Python最重要的特性之一，Python实现了很多对装饰器的支持
 
     - wraps
        wraps可以保留被装饰函数的__doc__。如下代码所示，wraps装饰器的开关会导致打印f.\_\_doc__出现两种结果
-    
+
         + 如果注释掉#1.1的代码，打印结果为#1.3
         + 如果加上#1.1的代码，打印结果为#2.1
        
@@ -271,36 +267,36 @@ tags:
         ```
     - property 、setter、 deleter
         > 这三个是孪生兄弟，其中property用的最多，setter和deleter依附property。
-                                    >
-        - property:将函数调用转化为属性
-        - setter:设置属性
-        - deleter:删除属性
+             
+             - property:将函数调用转化为属性
+             - setter:设置属性
+             - deleter:删除属性
         - 类似于JavaBean，可以将对属性的操作写入函数中，限制属性操作，保护
         属性安全。代码如下：
-        
+
         ```python
         class Student(object):
-
+        
             @property
             def name(self):
                 return self._name
-
+        
             @name.setter
             def name(self, name):
                 if len(name) < 2:
                     raise ValueError("无名大侠？")
                 self._name = name
-
+        
             @name.deleter
             def name(self):
                 del self._name
-
+        
         stu = Student()
         stu.name = "刘"      # name.setter
         print(stu.name)         ## property
         del stu.name           # name.deleter
         print(stu.name)         # raise AttributeError  
-
+        
         ```
 - 多装饰器叠加
 
@@ -339,14 +335,14 @@ tags:
     func()                      #4.1              
 
     >>> f2 start
-        f2 end
-        f1 start
-        f1 end
-        f1wrapper start
-        f2wrapper start
-        the func
-        f2wrapper end
-        f1wrapper end
+            f2 end
+            f1 start
+            f1 end
+            f1wrapper start
+            f2wrapper start
+            the func
+            f2wrapper end
+            f1wrapper end
     ```
     - 多装饰器执行过程分析
     执行分为两步，装饰器初始化，被装饰函数执行。顺序如下：
@@ -415,7 +411,6 @@ tags:
     单例模式
 
     ```python
-
     # eg:1
     class Singleton:
         _singleton = None
@@ -424,8 +419,6 @@ tags:
             if cls._singleton is None:
                 cls._singleton = super().__new__(cls)
             return cls._singleton
-    ```
-
 
     ins1 = Singleton()
     ins2 = Singleton()
@@ -462,7 +455,6 @@ tags:
             if self.cls not in self.ins_pool:
                 self.ins_pool[self.cls] = self.cls()
             return self.ins_pool[self.cls]
-
 
     @Singleton
     class Cls:
