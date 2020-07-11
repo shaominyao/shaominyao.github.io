@@ -11,7 +11,7 @@ tags:
 ---
 
 #### 写在前面
-> 本系列目的：希望可以通过一篇文章，不望鞭辟入里，但求在工程应用中得心应手。
+> 本系列目的：希望可以通过一篇文章，不求鞭辟入里，但使得心应手。
 
 + 装饰器模式是鼎鼎大名的23种设计模式之一。装饰器模式可以在不改变原有代码结构的情况下，扩展代码功能。
 + Python将装饰器作为Python的一种特性，内置了对装饰器的支持，使得Python使用者在使用装饰器时更加方便，合理使用装饰器，可以使Python代码极具美感。
@@ -115,7 +115,7 @@ tags:
                 f()
              
                 ```
-         
+        
             - 那么源码中#1处的三行代码，返回值为wrapper，即相当于通过增加@装饰函数，f现在已经指向了wrapper对象。
             - 根据之前提到闭包的特性：闭包可以访问作用之外的非局部变量，可以将作用域"封装",在闭包之外访问闭包内的变量。所以wrapper可以访问＃3.1中到自己外层函数的参数ｆ变量(被装饰器函数对象)，并且可以封装wrapper作用域，保存ｆ变量。
             - 执行#4处的业务函数f(),即执行#3.2的wrapper()代码，即执行#3.3和#3.4代码。
@@ -125,7 +125,7 @@ tags:
 - 带参数的函数装饰器
 
     现在有新的需求，根据调试和生产环境的不同，需要往复地开关打印时间戳的功能，那么这时就需要为装饰器函数增加参数，来作为是否打印时间戳的开关。如以下代码所示，ｆ()会打印当前函数的执行时间，ｆ1()则不会打印函数的执行时间
-       
+    
    ```python
         import time
     
@@ -156,7 +156,7 @@ tags:
             f is running!
             f1 is running!
    ```
-        
+   
   
     带参数装饰器原理
 
@@ -175,7 +175,7 @@ tags:
         * 类装饰器和函数装饰器思路相同，__init__作为对象初始化的第一步,可以实现一层闭包的效果
 
     - 将之前简单函数装饰器的例子换成类装饰器，代码如下(为了与之前代码保持一致，所以类名不符合Python命名规范)：
-        
+      
         ```python
         import time
 
@@ -218,21 +218,24 @@ tags:
                         print("running time:", time.time())
                     f()
                 return wrapper
+        ```
     
     
         @print_running_time(1)
         def f():
             print("f is running!")
-    
+        
         @print_running_time()
         def f1():
             print("f1 is running!")
-    
+        
         f()
         f1()
-    
+        
         >>> 输出同带参数的函数装饰器
-        ```
+      ```
+  
+    ```
   
 - 常用内建装饰器
     > 装饰器是Python最重要的特性之一，Python实现了很多对装饰器的支持
@@ -242,7 +245,7 @@ tags:
     
         + 如果注释掉#1.1的代码，打印结果为#1.3
         + 如果加上#1.1的代码，打印结果为#2.1
-         
+       
         ```python
         import time
         from functools import wraps
@@ -412,6 +415,7 @@ tags:
     单例模式
 
     ```python
+
     # eg:1
     class Singleton:
         _singleton = None
@@ -420,38 +424,39 @@ tags:
             if cls._singleton is None:
                 cls._singleton = super().__new__(cls)
             return cls._singleton
+    ```
 
 
     ins1 = Singleton()
     ins2 = Singleton()
     print(ins1 is ins2)
-
+    
     # eg:2
     def singleton(cls):
         ins_pool = {}
-
+    
         def inner():
             if cls not in ins_pool:
                 ins_pool[cls] = cls()
             return ins_pool[cls]
         return inner
-
+    
     @singleton
     class Cls:
         def __init__(self):
             pass
-
+    
     ins1 = Cls()
     ins2 = Cls()
     print(ins1 is ins2)
-
+    
     # eg:3
     class Singleton:
-
+    
         def __init__(self, cls):
             self.ins_pool = {}
             self.cls = cls
-
+    
         def __call__(self):
             print(self.ins_pool)
             if self.cls not in self.ins_pool:
@@ -463,7 +468,7 @@ tags:
     class Cls:
         def __init__(self):
             pass
-
+    
     ins1 = Cls()
     ins2 = Cls()
     print(ins1 is ins2)
