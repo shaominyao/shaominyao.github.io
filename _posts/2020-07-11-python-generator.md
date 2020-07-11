@@ -117,7 +117,7 @@ tags:
 
             -   重新编写上述代码中#3处for循环和#4处for循环，可以看到对应输出验证了我们的结论。第一次for循环在迭代到元素为2时跳出循环，第二次for循环继续迭代同一个迭代器，那么会继续上次迭代器结束位置继续迭代元素。代码如下：
 
-                ```Python
+                ```python
                 ins = Iterator([1,2,3,4,5])
                 print('the first for:')
                 for i in ins:								    # 3  the first for
@@ -245,7 +245,7 @@ tags:
 
         要理解以上代码，就需要理解yield关键字，先来看以下最简单的生成器函数实现
 
-        ```Python
+        ```python
         def func():
             yield 1																
             yield 2
@@ -288,7 +288,8 @@ tags:
         -   生成器对象和迭代器对象相似，都可以被for循环迭代，都只能被迭代一遍，通过next调用，都会在生成器元素为空时raise一个StopIteration异常。
 
         那么含有yield关键字的生成器函数体是如何执行的呢？请看如下代码：
-        ```Python
+        
+        ```python
         def f_gen():							# 10
             print('start')
             yield 1									# 11
@@ -351,7 +352,7 @@ tags:
 
     >   python的内置模块itertools提供了对生成器的诸多支持。这里列举一个，其它支持请看文档
 
-    ```Python
+    ```python
     gen = itertools.count(1, 2)    # 从1开始，步长为2，不断产生数值
     
     >>> next(gen)
@@ -372,7 +373,7 @@ tags:
 
     >   yield from 是python3.3中出现的新句法。yield from句法可以实现委派生成器。
 
-    ```Python
+    ```python
     def func():
         yield from (i for i in range(5))
     
